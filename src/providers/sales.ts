@@ -2,6 +2,7 @@ import { getSettingsProvider } from "./settings";
 
 export const SALES_STORAGE_KEY = "grocery_pos_lean_v1_sales";
 
+// generate order id / Have some issue
 export let orderId = Math.random().toString(36).slice(2,9);
 
 export function storeSalesProvider({ products, cart }: any) {

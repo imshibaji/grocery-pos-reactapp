@@ -10,7 +10,7 @@ export default function Cart() {
         <div className="card">
             <h3 style={{ marginTop: 0 }}>Cart</h3>
             {cartLines.length === 0 ? <div className="small">No items in cart</div> : (
-                <table className="table">
+                <table>
                     <thead><tr><th>Item</th><th className="right">Qty</th><th className="right">Price</th><th className="right">Total</th><th></th></tr></thead>
                     <tbody>
                         {cartLines.map(l => (

@@ -73,6 +73,20 @@ body {
   color: var(--muted);
 }
 
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 3px;
+  border-bottom: 1px solid #f1f5f9;
+  text-align: left;
+}
+
+/* Table Class Styles */
 .table {
   width: 100%;
   border-collapse: collapse;

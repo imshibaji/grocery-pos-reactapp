@@ -15,7 +15,7 @@ export default function Sales() {
             </div>
             <div className="grid">
                 <div className="card" style={{ overflow: "auto", height: "500px" }}>
-                    <table className="table">
+                    <table>
                         <thead>
                             <tr>
                                 <th>Item</th>

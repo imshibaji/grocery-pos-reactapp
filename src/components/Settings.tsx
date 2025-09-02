@@ -2,7 +2,7 @@ import React from "react";
 import useSettings from "../utils/useSettings";
 import { Settings } from "../reducers/settings";
 
-export default function Settings() {
+export default function Setting() {
     const { settings, setSettings } = useSettings();
     
     return (
