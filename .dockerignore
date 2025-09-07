@@ -1,0 +1,69 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-debug.log
+
+# Build outputs
+dist/
+build/
+out/
+
+# Test and debug artifacts
+test/
+tests/
+debug/
+*.log
+
+# IDE/editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Version control
+.git/
+.gitignore
+.svn/
+.hg/
+
+# Environment and secrets
+.env*
+*.env
+*.pem
+*.key
+*.crt
+config.local.*
+*.local.yml
+
+# Documentation and markdown
+README*
+*.md
+docs/
+
+# Docker and Compose files
+Dockerfile*
+docker-compose*
+compose.yaml
+
+# Temporary and local files
+tmp/
+temp/
+*.tmp
+.local/
+local/
+
+# macOS system files
+.DS_Store
+
+# Project-specific: backup files
+*.bak
+
+# Exclude the existing .dockerignore file from the build context
+.dockerignore
+
+# Exclude HTML and CSS files not needed in the build (if not required)
+# index.html
+# *.css
+
+# Exclude YAML files not needed in the build (if not required)
+# *.yaml

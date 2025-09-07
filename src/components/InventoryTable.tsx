@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useProducts } from "../utils/useProducts";
 
 export default function InventoryTable({ onImport, onAdd }) {
-  const { products, setProducts } = useProducts();
+  const { products, setProducts, removeProduct } = useProducts();
   const [form, setForm] = useState({ name: "", category: "", unit: "", cost: "", sell: "", stock: "" });
   function add() {
     if (!form.name) return alert("Name required");
@@ -14,7 +14,8 @@ export default function InventoryTable({ onImport, onAdd }) {
   }
   function remove(id) {
     if (!confirm("Remove item?")) return;
-    setProducts(products.filter(p => p.id !== id));
+    // setProducts(products.filter(p => p.id !== id));
+    removeProduct(id);
   }
   return (
     <div>

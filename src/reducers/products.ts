@@ -13,18 +13,19 @@ export interface Product {
 
 export const productSlice = createSlice({
     name: "products",
-    initialState: getProductsProvider() as Product[],
+    // initialState: getProductsProvider() as Product[],
+    initialState: [] as Product[],
     reducers: {
         addProducts: (state, action) => {
             if(!action.payload) return;
             if(Array.isArray(action.payload)){
                 if(!action.payload.length) return;
-                addProductsProvider(action.payload as Product[]);
+                // addProductsProvider(action.payload as Product[]);
                 state.push(...action.payload);
                 return;
             };
             if(typeof action.payload === "object"){
-                addProductProvider(action.payload as Product);
+                // addProductProvider(action.payload as Product);
                 state.push(action.payload as Product);
                 return;
             };
@@ -33,22 +34,22 @@ export const productSlice = createSlice({
             if(!action.payload) return;
             if(Array.isArray(action.payload)){
                 if(!action.payload.length) return;
-                setProductsProvider(action.payload as Product[]);
+                // setProductsProvider(action.payload as Product[]);
                 state.splice(0, state.length, ...action.payload);
                 return
             }
             if(typeof action.payload === "object"){
-                setProductsProvider([action.payload as Product]);
+                // setProductsProvider([action.payload as Product]);
                 state.splice(0, state.length, action.payload as Product);
             };
             // return action.payload; 
         },
-        removeProduct: (state, action) => {
+        removeProducts: (state, action) => {
             const index = state.findIndex((i) => i.id === action.payload);
             state.splice(index, 1);
         },
     },
 });
 
-export const { addProducts, updateProducts, removeProduct } = productSlice.actions;
+export const { addProducts, updateProducts, removeProducts } = productSlice.actions;
 export default productSlice.reducer;

@@ -1,37 +1,57 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Product, removeProduct, updateProducts } from "../reducers/products";
+import { Product, removeProducts, updateProducts } from "../reducers/products";
 import { RootState } from "../store";
-import { DEFAULT_PRODUCTS, STORAGE_KEY } from "../providers/products";
-
+import { DEFAULT_PRODUCTS } from "../providers/products";
+import { useEffect, useState } from "react";
+import { ProductsService } from "../services/Products";
 
 export function useProducts() {
-    const productsData = useSelector((state: RootState) => state.products as Product[]);
-    const dispatch = useDispatch();
+  const productsData = useSelector(
+    (state: RootState) => state.products as Product[]
+  );
+  const dispatch = useDispatch();
+  const tss = new ProductsService();
 
-    if(!productsData.length) {
-        dispatch(updateProducts(DEFAULT_PRODUCTS));
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_PRODUCTS));
-    }
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-    const addProductHandler = (data: Product) => {
-        dispatch(updateProducts([...productsData, data]));
-        localStorage.setItem(STORAGE_KEY, JSON.stringify([...productsData, data]));
-    };
+  const fetchData = async() => {
+    try {
+        const data = await tss.fetch();
+        // console.log(data);
+        
+        if (data && data.length > 0) {
+          dispatch(updateProducts(data));
+        } else {
+          await tss.import(DEFAULT_PRODUCTS);
+          dispatch(updateProducts(DEFAULT_PRODUCTS));
+        }
+      } catch (err: any) {
+        console.error("Typesense Error:", err.response?.data || err.message);
+      }
+  };
 
-    const productsHandler = (data: Product[]) => { 
-        dispatch(updateProducts(data));
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    };
+  const addProductHandler = (data: Product) => {
+    tss.create(data).catch((e) => console.log(e));
+    dispatch(updateProducts([...productsData, data]));
+  };
 
-    const removeProductHandler = (id: string) => {
-        dispatch(removeProduct(productsData.filter(p=>p.id!==id)));
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(productsData.filter(p=>p.id!==id)));
-    };
+  const productsHandler = (datas: Product[]) => {
+    dispatch(updateProducts(datas));
+    // update
+    datas.map(async (p) => await tss.update(p.id, p));
+  };
 
-    return {
-        products: productsData,
-        setProducts: productsHandler,
-        addProduct: addProductHandler,
-        removeProduct: removeProductHandler
-    };
+  const removeProductHandler = (id: string) => {
+    tss.delete(id).catch((e) => console.log(e));
+    dispatch(removeProducts(id));
+  };
+
+  return {
+    products: productsData,
+    setProducts: productsHandler,
+    addProduct: addProductHandler,
+    removeProduct: removeProductHandler,
+  };
 }

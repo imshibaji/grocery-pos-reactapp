@@ -16,7 +16,7 @@ export default function Cart() {
                         {cartLines.map(l => (
                             <tr key={l.id}>
                                 <td>{l.name}</td>
-                                <td className="right"><input className="input" style={{ width: 40 }} type="number" value={l.qty} onChange={e => setQty(l.id, Number(e.target.value))}  /></td>
+                                <td className="right"><input className="input" style={{ width: 50 }} type="number" value={l.qty} onChange={e => setQty(l.id, Number(e.target.value))}  /></td>
                                 <td className="right">{currency(l.price)}</td>
                                 <td className="right">{currency(l.line)}</td>
                                 <td className="right"><button className="ghost" onClick={() => removeFromCart(l.id)}>X</button></td>
@@ -28,14 +28,14 @@ export default function Cart() {
 
             <div style={{ marginTop: 10 }}>
                 <div className="small">Subtotal: <strong>{currency(subtotal)}</strong></div>
-                {settings.gst && <div className="small">GST ({settings.gstPercent}%): <strong>{currency(gstAmt)}</strong></div>}
-                {settings.deliveryCharge && settings.delivery > 0 && <div className="small">Delivery: <strong>{currency(settings.delivery)}</strong></div>}
+                {settings!.gst && <div className="small">GST ({settings!.gstPercent}%): <strong>{currency(gstAmt)}</strong></div>}
+                {settings!.deliveryCharge && settings!.delivery > 0 && <div className="small">Delivery: <strong>{currency(settings!.delivery)}</strong></div>}
                 <div style={{ fontSize: 18, marginTop: 8 }}>Total: <strong>{currency(total)}</strong></div>
 
                 <hr />
                 <div style={{ display: "flex", gap: 8 }}>
-                    <label><input type="checkbox" checked={settings.gst} onChange={e => setSettings({ ...settings, gst: e.target.checked })} /> Enable GST</label>
-                    <label><input type="checkbox" checked={settings.deliveryCharge} onChange={e => setSettings({ ...settings, deliveryCharge: e.target.checked })} /> Enable Delivary Charge</label>
+                    <label><input type="checkbox" checked={settings!.gst} onChange={e => setSettings({ ...settings!, gst: e.target.checked })} /> Enable GST</label>
+                    <label><input type="checkbox" checked={settings!.deliveryCharge} onChange={e => setSettings({ ...settings!, deliveryCharge: e.target.checked })} /> Enable Delivary Charge</label>
                 </div>
             </div>
 

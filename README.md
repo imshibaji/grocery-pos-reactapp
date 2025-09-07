@@ -27,3 +27,30 @@ Files:
 - src/App.jsx
 - src/styles.css
 
+---
+
+Running with Docker
+-------------------
+
+You can run this project using Docker for a consistent, containerized environment. The provided Dockerfile uses Node.js v22.13.1 (slim) and builds the app for production.
+
+**Requirements:**
+- Docker (latest version recommended)
+- Docker Compose (v2+)
+
+**How to build and run:**
+1. In the project folder, run:
+   ```sh
+   docker compose up --build
+   ```
+2. The app will be available at [http://localhost:3000](http://localhost:3000)
+
+**Details:**
+- The frontend is served on port **3000** (exposed by the container)
+- No environment variables are required by default
+- No persistent volumes or external dependencies are needed (all data is stored in browser localStorage)
+- The Docker image is built using the provided `Dockerfile` and `compose.yaml`
+
+**Note:**
+- If you have a `.env` file for custom environment variables, you can uncomment the `env_file` line in `compose.yaml`
+- The app runs as a non-root user inside the container for better security
